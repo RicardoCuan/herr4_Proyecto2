@@ -16,7 +16,7 @@ Proyecto #2 Sensores<br/>
 
 * Edgar Gutierrez
 * José Paredes
-* Margie Alpires
+* Margie Alpirez
 * Ricardo Cuan
 
 **Fecha**: 7 de diciembre de 2020
