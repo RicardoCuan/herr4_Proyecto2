@@ -32,14 +32,14 @@ Para el desarrollo del siguiente proyecto haremos lo siguiente:
 1. - [X] Se unirá con otro equipo
 2. - [X] Integrar GitHub en Android Studio
 3. - [ ] Crear un proyecto donde al usuario se le ofrece tres opciones de sensores.
-4. - [ ] Ambos grupos deben participar en la construcción de dicho proyecto y dejar evidencia de las versiones trabajadas.
-5. - [ ] El profesor debe tener acceso al GitHub.
-6. - [ ] Presentarlo en Teams.
+4. - [X] Ambos grupos deben participar en la construcción de dicho proyecto y dejar evidencia de las versiones trabajadas.
+5. - [X] El profesor debe tener acceso al GitHub.
+6. - [X] Presentarlo en Teams.
 
 Selecciones 3 del listado.
 
 1. - [ ] Acelerómetro
 2. - [ ] Sensor de proximidad
-3. - [ ] Temperatura
-4. - [ ] Huella
-5. - [ ] Ubicación del GP
+3. - [X] Temperatura - [Documentación Oficial](https://developer.android.com/guide/topics/sensors/sensors_environment)
+4. - [X] Huella - [Documentación Oficial](https://developer.android.com/about/versions/marshmallow/android-6.0?hl=es-419#fingerprint-authentication)
+5. - [X] Ubicación del GPS - [Documentación Oficial](https://developer.android.com/training/location?hl=es-419)
