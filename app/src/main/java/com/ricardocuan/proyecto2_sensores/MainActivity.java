@@ -3,22 +3,31 @@ package com.ricardocuan.proyecto2_sensores;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener,LocationListener  {
+public class MainActivity extends AppCompatActivity implements SensorEventListener, LocationListener {
 
     //UI Views
     private TextView authStatusTv;
@@ -34,12 +43,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private boolean isTempSensorAvailible;
 
     // Geolocalización
-    static final long TIEMPO_MIN = 10 * 1000 ; // 10 segundos
+    static final long TIEMPO_MIN = 10 * 1000; // 10 segundos
     static final long DISTANCIA_MIN = 5; // 5 metros
-    static final String[] A = { "n/d", "preciso", "impreciso" };
-    static final String[] P = { "n/d", "bajo", "medio","alto" };
-    static final String[] E = { "fuera de servicio",
-            "temporalmente no disponible ", "disponible" };
+    static final String[] A = {"n/d", "preciso", "impreciso"};
+    static final String[] P = {"n/d", "bajo", "medio", "alto"};
+    static final String[] E = {"fuera de servicio",
+            "temporalmente no disponible ", "disponible"};
     LocationManager manejador;
     String proveedor;
     TextView salida;
@@ -63,6 +72,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         proveedor = manejador.getBestProvider(criterio, true);
         log("Mejor proveedor: " + proveedor + "\n");
         log("Comenzamos con la última localización conocida:");
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         Location localizacion = manejador.getLastKnownLocation(proveedor);
         muestraLocaliz(localizacion);
         // Geolocalización - END
@@ -72,10 +91,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         textView = findViewById(R.id.textView2);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        if (sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE)!=null){
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE) != null) {
             tempSensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
             isTempSensorAvailible = true;
-        }else {
+        } else {
             textView.setText("Temperature Sensor is not Availible");
             isTempSensorAvailible = false;
         }
@@ -132,21 +151,32 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        textView.setText(sensorEvent.values[0]+" °C");
+        textView.setText(sensorEvent.values[0] + " °C");
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
-        if (isTempSensorAvailible){
+        if (isTempSensorAvailible) {
             sensorManager.registerListener(this, tempSensor, SensorManager.SENSOR_DELAY_NORMAL);
         }
 
         // Geolocalización
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         manejador.requestLocationUpdates(proveedor, TIEMPO_MIN, DISTANCIA_MIN, this);
     }
 
