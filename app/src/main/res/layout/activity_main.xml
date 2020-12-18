@@ -47,4 +47,14 @@
         android:layout_marginBottom="152dp"
         android:text="TextView" />
 
+    <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+                android:id="@+id/salida"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+    </ScrollView>
+
 </RelativeLayout>
