@@ -40,6 +40,6 @@ Selecciones 3 del listado.
 
 1. - [ ] Acelerómetro
 2. - [ ] Sensor de proximidad
-3. - [X] Temperatura - [Documentación Oficial](https://developer.android.com/guide/topics/sensors/sensors_environment)
+3. - [] Temperatura
 4. - [X] Huella - [Documentación Oficial](https://developer.android.com/about/versions/marshmallow/android-6.0?hl=es-419#fingerprint-authentication)
 5. - [X] Ubicación del GPS - [Documentación Oficial](https://developer.android.com/training/location?hl=es-419)
